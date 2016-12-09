@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+	#input {
+		background-color: black;
+	}
+
+	#placard {
+		background-color: beige;
+		width: 100%;
+		min-height: 500px;
+	}
+
+	.postit {
+		position : absolute;
+		width : 80px;
+		height : 80px;
+		/* background-color: yellow; */
+		text-align: center;
+		background-image: url("postit.png");
+		background-size: 100%;
+		background-repeat: no-repeat;
+
+	}
+</style>
+</head>
+<body>
+
+<div id="input">
+	<input type="text" id="intext">
+</div>
+<div id="placard">
+	
+</div>
+
+<div class="postit" id="original" style="display:none">
+	<p></p>
+</div>
+
+</body>
+<script type="text/javascript">
+
+	var divplacard = document.getElementById("placard");
+	console.log(divplacard);
+
+	divplacard.addEventListener("click", function (e) {
+
+		//console.log(e);
+		text = document.getElementById("intext").value;
+		if (text !== "") {
+
+		//document.getElementById("intext").value = "";
+		newpostit = document.createElement("div");
+		newpostit.setAttribute("class","postit");
+		newpostit.style.left = (e.clientX - 40) + "px";
+		newpostit.style.top = e.clientY + "px";
+		divplacard.appendChild(newpostit);
+
+		newpostit.innerHTML = "<p>" + text + "</p>";
+
+	}
+	});
+
+	divplacard.addEventListener("click", function (e) {
+
+		text = document.getElementById("intext").value;
+		if (text !== "") {
+			document.getElementById("intext").value = "";
+			original = document.getElementById("original");
+			clone = original.cloneNode(true);
+			console.log(clone);
+			p = clone.querySelector("p");
+			p.innerHTML = text;
+			divplacard.appendChild(clone);
+			clone.style.left = (e.clientX + 80) + "px";
+			clone.style.top = e.clientY + "px";
+			clone.style.display = "block";
+			divplacard.appendChild(clone);
+	}
+});
+
+
+
+
+</script>
+
+</html>
